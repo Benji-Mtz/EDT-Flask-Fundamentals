@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
 
@@ -28,17 +28,17 @@ def our():
 @app.route('/login/')
 def login(name=None):
     if name is not None:
-        return redirect(f'/dashboard/{ name }')
+        return redirect(url_for("dashboard", name=name))
     else:
         return f'<h1 style="font-size: 32px; color:blue;">Ingresa tu nombre en la Url...</h1>'
 
 
-@app.route('/dashboard/<name>')
-@app.route('/dashboard/')
+@app.route('/profile/<name>')
+@app.route('/profile/')
 def dashboard(name=None):
     if name is not None:
         return f'<h1 style="font-size: 16px; color:green;">Bienvenido (a) { name } al dashboard</h1>'
-    return redirect("/login/")
+    return redirect(url_for("login"))
 
 
 """
